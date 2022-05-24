@@ -1,0 +1,52 @@
+Package: TIFF
+Type: Package
+Title: Tissue Differences Shiny App
+Version: 2.0.3
+Authors@R: c(
+    person("Andreas", "Wernitznig", email = "awernitz@broadinstitute.org", role = c("aut", "rev"),
+           comment = c(ORCID = "0000-0003-1883-1470")),
+    person("Michal", "Jakubczak", email = "michal.jakubczak@ardigen.com", role = c("aut", "cre", "ctr")),
+    person("Zygmunt", "Zawadzki", email = "zygmunt.zawadzki@ardigen.com", role = c("aut", "ctr"))
+  )
+Description: Differences between sets of tissues
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+      shiny,
+      shinyBS,
+      shinyjs,
+      shinythemes,
+      DT,
+      XIFF,
+      FutureManager (>= 0.2.6),
+      tibble,
+      dplyr,
+      tidyr,
+      forcats,
+      purrr,
+      ggplot2,
+      ggrepel,
+      broom,
+      survival,
+      survminer,
+      grid,
+      edgeR,
+      limma,
+      gage,
+      matrixTests,
+      config,
+      readr,
+      stringr,
+      glue,
+      logger,
+      withr,
+      bslib,
+      rlang
+RoxygenNote: 7.1.2
+Suggests: 
+    testthat,
+    shinytest,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

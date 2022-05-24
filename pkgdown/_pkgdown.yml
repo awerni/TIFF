@@ -1,0 +1,80 @@
+authors:
+  Andreas Wernitznig:
+    href: http://wernitznig.com
+  Michal Jakubczak:
+  Zygmunt Zawadzki:
+    
+template:
+  bootstrap: 5
+  bootswatch: lumen
+
+code:
+  width: 120
+
+development:
+  mode: auto
+
+reference:
+- title: Settings and database connection
+  contents:
+  - setDbOptions
+  - getSettings
+  - initialSettingsCheck
+  - TIFFOptions
+  - withTIFF
+  - setTIFF
+
+- title: Retrieve Tissue data from Database
+  contents:
+  - makePrefilter
+  - starts_with("getTissue")
+  - starts_with("getWaterfallData")
+  - getAnalysisDataMutation
+  - starts_with("getExpressionDimRedData")
+  - getHeatmapDataHallmark
+  - getInfoMutation
+  - getInputDataSignaling
+  - getMultipleFeaturesAxisData
+  - getOtherPropData
+  - getSequencedTissues
+  
+- title: Retrieve annotation data from Database
+  contents:
+  - matches("get.*Anno")
+  - getGeneFromSymbol
+
+- title: Database exploration functions
+  desc: Utility functions which are helpful to check what is in the database.
+  contents:
+  - starts_with("getAvailable")
+  - starts_with("getMetadata")
+  - getCopyNumberAssociation
+
+- title: Plotting functions
+  contents:
+  - starts_with("generate")
+  - grid.draw.ggsurvplot
+
+- title: Analysis functions
+  contents:
+  - starts_with("differential")
+  - starts_with("compare")
+  - getGSEA
+  - getMutationAssociation
+  - getOtherPropStatistics
+  - survivalAnalysis
+
+- title: Miscellaneous
+  desc: Miscellaneous functions which cannot be easily assigned to other categories.
+  contents:
+  - exampleClassAssigment
+  - print.TiffPrefilter
+  - getInformation
+
+- title: Shiny Functions
+  desc: Functions used by the shiny application. Not useful for API usage.
+  contents:
+  - app
+  - appUI
+  - run
+  - makeTextCallback

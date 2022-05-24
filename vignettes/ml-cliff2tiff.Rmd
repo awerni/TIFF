@@ -1,0 +1,138 @@
+---
+title: "ML - from CLIFF to TIFF"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ML - from CLIFF to TIFF}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 8,
+  fig.height = 6
+)
+```
+
+```{r}
+library(knitr)
+library(dplyr)
+library(XIFF)
+#library(CLIFF)
+
+CLIFF::setCLIFF()
+XIFF::setDbOptions(CLIFF::getSettings())
+
+# Gene Annotation
+geneAnno <- CLIFF::getGeneAnno("human")
+
+ensg <- geneAnno %>% filter(symbol == "TP53" & grepl("^17", location)) %>% pull(ensg)
+symbol <- getGeneSymbol(ensg)
+tumors <- c("colon carcinoma", "gastric carcinoma", "melanoma")
+
+mut_info <- CLIFF::getInfoMutation(ensg) %>%
+  filter(tumortype %in% tumors)
+
+cells_ca <- classAssignment(
+  split(mut_info$celllinename, mut_info$aamutated),
+  positiveClass = "wt"
+)
+
+# Hallmark gene set
+geneSet <- getGSEAdata("human", "hallmark", "HALLMARK_P53_PATHWAY")
+# cell line annotation
+annoFocus <- CLIFF::getCellLineAnno("human")
+
+sets <- XIFF::splitTrainingTestSets(cells_ca, 0.2)
+trainingSet <- sets$training
+testSet <- sets$test
+
+printMetricTable <- function(x) {
+  x %>% select(metric, value) %>%
+  mutate(value = paste0(round(value*100,2), "%")) %>%
+  kable
+}
+
+```
+
+```{r}
+
+defaultFit <- XIFF::buildMachineLearning(
+  cs = trainingSet,
+  geneSet = geneSet,
+  geneAnno = geneAnno,
+  species = "human", 
+  method = "rf"
+)
+
+grepFit <- XIFF::buildMachineLearning(
+  cs = trainingSet,
+  geneSet = geneSet,
+  geneAnno = geneAnno,
+  species = "human", 
+  method = "GREP"
+)
+```
+
+### Random forest on test data
+
+```{r}
+testResult <- testModel(defaultFit, testSet, annoFocus)
+generateTestPerformanceData(testResult) %>% printMetricTable
+generateTestModelPlots(testResult)
+```
+
+### GREP on test data
+
+```{r}
+grepTestResult <- testModel(grepFit, testSet, annoFocus)
+generateTestPerformanceData(grepTestResult) %>% printMetricTable
+generateTestModelPlots(grepTestResult)
+```
+
+# Get TIFF data
+
+```{r}
+#library(TIFF)
+TIFF::setTIFF()
+
+ti_tumor <- c("colon adenocarcinoma", "stomach adenocarcinoma", "skin cutaneous melanoma")
+
+prefilter <- TIFF::makePrefilter("tumor", ti_tumor)
+mut_info <- TIFF::getInfoMutation(ensg, prefilter)
+
+tissue_ca <- classAssignment(
+  split(mut_info$tissuename, mut_info$aamutated),
+  positiveClass = "wt"
+)
+
+tiffAnnoFocus <- TIFF::getTissueAnnotation()
+```
+
+### Random forest on TIFF data
+
+```{r}
+defaultRes <- testModel(defaultFit, testSet = tissue_ca, anno = tiffAnnoFocus)
+generateTestPerformanceData(defaultRes) %>% printMetricTable
+generateTestModelPlots(defaultRes)
+```
+
+### GREP on TIFF data
+
+```{r}
+grepRes <- testModel(grepFit, testSet = tissue_ca, anno = tiffAnnoFocus)
+generateTestPerformanceData(grepRes) %>% printMetricTable
+generateTestModelPlots(grepRes)
+```
+
+### Compare models
+
+```{r}
+tibble(
+  Statistics = names(defaultRes$res$byClass),
+  Default = defaultRes$res$byClass,
+  GREP = grepRes$res$byClass) %>%
+  mutate_if(is.numeric, function(x) round(x, 4))
+```

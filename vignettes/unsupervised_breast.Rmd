@@ -1,0 +1,105 @@
+---
+title: "Unsupervised Breast Cancer Analysis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Unsupervised Breast Cancer Analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 10,
+  fig.height = 7,
+  dev = "ragg_png"
+)
+```
+
+In this analysis we will cluster breast cancer samples from TCGA based 
+on gene expression and explore their sub-type.
+
+## Loading required packages:
+
+```{r setup}
+library(XIFF)
+library(TIFF)
+library(tidyverse)
+```
+
+## Database connection, tissue and gene annotation
+
+First we load the settings for the database connection and
+set the respective options to allow a smooth db connection.
+
+Then we filter the tissue annotation to breast cancer samples
+and load the gene annotation.
+
+```{r}
+setDbOptions(getSettings())
+set.seed(123)
+
+tissue_anno <- getTissueAnnotation() %>%
+  filter(tissuepanel == "TCGA tumors" & tumortype == "breast invasive carcinoma")
+
+gene_anno <- getGeneAnno("human")
+```
+
+## Dimension reduction based on a hallmark gene set
+
+Among the available MSigDB Hallmark gene sets we select the genes, which
+are involved in the early response to estrogen. 
+The variable ensg_gene_set will be a vector of ensembl gene names (ENSG).
+
+Then we retrieve the gene expression (TPMs and COUNTs) for the respective genes
+and breast cancer samples, apply two dimension reduction methods (T-SNE by default
+and UMAP) and plot the results to see, if they are clustering by histology sub type.
+
+We can see a good separation of the Basal/Triple-Negative samples. The HER2/ERBB2 high 
+samples also cluster in one area, but there is hardly any separation of the Luminal 
+A and B.
+
+```{r}
+my_gene_set <- grep("ESTROGEN_RESPONSE_EARLY", getAvailableHallmarkGeneSets(), value = TRUE)
+ensg_gene_set <- getGSEAdata("human", "hallmark", gene_set = my_gene_set)
+
+breast_dimred <- getExpressionDimRedData(tissue_anno$tissuename, ensg_gene_set, p = TRUE)
+
+tissueDimRed <- getExpressionDimRed(data = breast_dimred, anno = tissue_anno, method = "tsne")
+generateExpressionDimRedPlot(tissueDimRed, colorCol = "histology_subtype")
+```
+
+## Dimension reduction based on selected genes
+
+Selecting a number of breast cancer relevant genes gives us more flexibility to focus 
+on the most important genes, rather than a full gene set with ~200 genes.
+Beside the hormone receptors for estrogen (ESR1) and progesterone (PGR), we selected 
+elastin (ELN), Aurora kinase A (AURKA) and odd-skipped related transcription 
+factor 1 (OSR1).
+
+This time the separation between Luminal A and B is much clearer.
+
+```{r}
+breast_genes <- gene_anno %>%
+  filter(symbol %in% c("ESR1", "PGR", "ERBB2", "AURKA", "ELN", "OSR1") & grepl("ENSG", ensg))
+
+breast_custom_dimred <- getExpressionDimRedData(tissue_anno$tissuename, breast_genes$ensg, p = TRUE)
+
+tissueDimRed2 <- getExpressionDimRed(data = breast_custom_dimred, anno = tissue_anno, 
+                                     method = "tsne", clusterMethod = "k-means k = 4")
+generateExpressionDimRedPlot(tissueDimRed2, colorCol = "histology_subtype")
+```
+
+## Gene expression cluster overlapps with histology type
+
+Subtypes BRCA_Her2 (ERBB2 high samples) and BRCA_Basal (triple negative samples) 
+overlap with gene expression clusters.
+
+```{r}
+generateExpressionDimRedPlot(tissueDimRed2, colorCol = "cluster")
+ggplot(tissueDimRed2, aes(x = histology_subtype, fill = cluster)) + geom_bar()
+```
+
+With this vignette we could show a good separation of Breast subtypes 
+based on gene expression.

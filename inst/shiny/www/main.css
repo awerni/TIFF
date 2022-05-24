@@ -1,0 +1,25 @@
+.brush-container {
+  margin-right: 200px; /* to fit brush options */
+}
+
+hr {
+  margin-top: 11px;
+  margin-bottom: 11px;
+}
+
+.radio {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.navbar-brand {
+  padding: 0;
+}
+
+.tab-content {
+  margin-top: 10px;
+}
+
+.navbar-static-top {
+  margin-bottom: 3px;
+}

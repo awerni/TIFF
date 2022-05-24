@@ -1,0 +1,14 @@
+default:
+  db:
+    host: !expr Sys.getenv("dbhost", unset = "database.server")
+    name: !expr Sys.getenv("dbname", unset = "bioinfo.hg38")
+    user: !expr Sys.getenv("dbuser", unset = "reader")
+    password: !expr Sys.getenv("dbpass", unset = "reader")
+    port: !expr as.numeric(Sys.getenv("dbport", unset = 5432))
+    useGCloudAuth: !expr as.logical(Sys.getenv("dbusegcloudauth", unset = FALSE))
+  options:
+    fm_strategy: !expr Sys.getenv("fmstrategy", unset = "auto")
+  species: "human"
+  links:
+    msigDBLink: "http://software.broadinstitute.org/gsea/msigdb/cards/"
+    docuLink: "http://vie-bio-docs.eu.boehringer.com/tiff.html"
