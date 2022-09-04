@@ -86,7 +86,6 @@ aboutTabUI_main <- function(id, docuLink){
         href = " https://doi.org/10.1371/journal.pgen.1007669", target = "_blank"
       )
     ),
-    p("for Boehringer Ingelheim internal use only"),
     p(paste("Forked processes support:", `if`(supportsMulticore(), "yes", "no"))),
     p(
       R.Version()$version.string, 
