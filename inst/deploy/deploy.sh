@@ -1,10 +1,9 @@
-#!/bin/sh
+#!/usr/bin/sh
 
-targetDir=/data/bioinf/ShinyApps/tiff
-
-rm -f ${targetDir}/*.R
-rm -f ${targetDir}/www/*
-
-cp -a ../shiny/ui.R ../shiny/server.R ../shiny/global.R ../shiny/config.yml ${targetDir}/
-cp -a ../shiny/www/TIFF.png ../shiny/www/main.css ${targetDir}/www/
-touch ${targetDir}/restart.txt
+cd ..
+pwd
+cp Docker/Dockerfile /nas1/.scratch/TIFF/
+cp Docker/Rprofile.site /nas1/.scratch/TIFF/
+cp Docker/install_prereqs_tiff.R /nas1/.scratch/TIFF/
+ssh charlotte "cd /nas1/.scratch/TIFF;docker build . --no-cache -t tiff/broadinstitute.org"
+#ssh charlotte "cd /nas1/.scratch/TIFF;docker build . -t tiff/broadinstitute.org"
