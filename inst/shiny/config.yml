@@ -11,4 +11,4 @@ default:
   species: "human"
   links:
     msigDBLink: "http://software.broadinstitute.org/gsea/msigdb/cards/"
-    docuLink: "http://vie-bio-docs.eu.boehringer.com/tiff.html"
+    docuLink: "http://docu.fr.pierre-fabre.lcl.com/tiff.html"
