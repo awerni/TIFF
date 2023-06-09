@@ -14,5 +14,5 @@ deploy:
   stage: deploy
   extends:
     - .branchMasterOnly
-    - .az-web-app-notify
+    - .deployAzWebAppNotifyWithLogs
   when: manual
