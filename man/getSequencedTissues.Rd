@@ -10,7 +10,7 @@ getSequencedTissues(tissuenames)
 \item{tissuenames}{vector of tissuenames or classAssigment object}
 }
 \value{
-
+character vector
 }
 \description{
 Get Sequenced Tissues

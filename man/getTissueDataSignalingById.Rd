@@ -16,7 +16,7 @@ available ones}
 to the output table}
 }
 \value{
-
+data.frame
 }
 \description{
 Get Tissue Data Signaling By Id

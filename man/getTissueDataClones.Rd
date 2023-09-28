@@ -12,7 +12,7 @@ getTissueDataClones(tissuenames, scores = "clone_tree_score")
 \item{scores}{vector of scores to be extracted}
 }
 \value{
-
+data.frame
 }
 \description{
 Get Tissue Data Clones

@@ -16,7 +16,7 @@ generateKaplanMeierPlot(data, plot_p = TRUE, plot_ci = FALSE, plot_risk = TRUE)
 \item{plot_risk}{if TRUE (default), then the risk table is added to be plot}
 }
 \value{
-
+ggsurvplot
 }
 \description{
 Generate Kaplan-Meier Plot
