@@ -11,7 +11,7 @@ getSettings(obj = NULL)
 }
 \description{
 Retrieves settings from an yml file. By default, the file from the package 
-is used. If you want to use your custom file, please set R_CONFIG_FILE 
+is used. If you want to use your custom file, please set TIFF_CONFIG_FILE 
 environmental variable.
 }
 \details{

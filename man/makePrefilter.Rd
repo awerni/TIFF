@@ -15,7 +15,7 @@ makePrefilter(
 \item{selected}{vector of selected tissue types}
 }
 \value{
-
+TiffPrefilter object
 }
 \description{
 Makes prefilter object

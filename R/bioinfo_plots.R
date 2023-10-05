@@ -426,7 +426,7 @@ generateExpressionPlot <- function(df, plotType = "point", title = NULL, ca = NU
 #'        \code{data}. However if it is not possible, you may need to provide
 #'        it on your own.
 #'
-#' @return
+#' @return pheatmap object
 #' @export
 #'
 #' @examples
@@ -972,7 +972,7 @@ generateClonesPlot <- function(df, plotType, title = NULL, ca = NULL){
 #' @param plot_ci if TRUE (defult FALSE), then the confidence intervals are added to the plot
 #' @param plot_risk if TRUE (default), then the risk table is added to be plot
 #'
-#' @return
+#' @return ggsurvplot
 #' @export
 #'
 #' @examples
@@ -1018,7 +1018,6 @@ generateKaplanMeierPlot <- function(data, plot_p = TRUE, plot_ci = FALSE, plot_r
 #' 
 #' @details required to properly draw ggsurvplot in shiny application.
 #' @importFrom grid grid.draw
-#' @exportS3Method 
 #' 
 #' @export
 #' 
