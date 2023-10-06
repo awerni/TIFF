@@ -1,5 +1,5 @@
 # UI --------------------------------------------------------------------------
-hallmarkSetsInputModeUI <- function(id, geneSets, default = "HALLMARK_APOPTOSIS" ){
+hallmarkSetsInputModeUI <- function(id){
   ns <- NS(id)
   choices <- getHallmarkGeneSetChoices(sort(geneSets))
   
@@ -9,16 +9,27 @@ hallmarkSetsInputModeUI <- function(id, geneSets, default = "HALLMARK_APOPTOSIS"
         inputId = ns("geneset"), 
         label = "Gene set:", 
         multiple = FALSE, 
-        choices = choices,
-        selected = default
-      )
+        choices = NULL
+      ),
+      uiOutput(ns("indicator"))
     ),
     brushPlotUI(ns("barplot"))
   )
 }
 
 # Server ----------------------------------------------------------------------
-hallmarkSetsInputMode <- function(input, output, session, TissuePrefilter){
+hallmarkSetsInputMode <- function(input, output, session, TissuePrefilter, 
+                                  geneSets, default = "HALLMARK_APOPTOSIS"){
+  
+  output$indicator <- renderUI({
+    updateSelectInput(
+      inputId = "geneset",
+      choices = geneSets,
+      selected = default
+    )
+    
+    NULL
+  })
   
   HallmarkSetData <- reactive({
     geneSet <- input$geneset

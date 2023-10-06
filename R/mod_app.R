@@ -1,10 +1,6 @@
 #' TIFF App UI
 #'
 #' @param settings settings object
-#' @param proliferationTests proliferation tests config extracted from the settings
-#' object by \code{getAvailableProliferationTests(getDrugScoreConfig(settings))}
-#' @param hallmarkGeneSets list of available genesets.
-#' E.g. a result of \code{getAvailableHallmarkGeneSets()}
 #'
 #' @importFrom bslib nav_item page_navbar
 #' @importFrom shinythemes shinytheme
@@ -12,7 +8,7 @@
 #' @importFrom rlang `!!!`
 #' @export
 #' 
-appUI <- function(settings, proliferationTests, hallmarkGeneSets) {
+appUI <- function(settings) {
   
   appId <- "app"
   
@@ -42,9 +38,9 @@ appUI <- function(settings, proliferationTests, hallmarkGeneSets) {
       theme = theme,
       collapsible = TRUE,
       bslib::nav_item(appUI_title(appId, "Tissue Differences", "TIFF.png")),
-      appUI_main_input(appId, geneSignatures, hallmarkGeneSets),
+      appUI_main_input(appId),
       appUI_main_overview(appId),
-      appUI_main_analysis(appId, geneSignatures, hallmarkGeneSets),
+      appUI_main_analysis(appId,),
       XIFF::appUI_main_machine_learning(appId),
       XIFF::appUI_main_about(
         appId,
@@ -62,7 +58,7 @@ appUI <- function(settings, proliferationTests, hallmarkGeneSets) {
   )
 }
 
-appUI_main_input <- function(id, geneSignatures, hallmarkGeneSets){
+appUI_main_input <- function(id){
   
   ns <- NS(id)
   tabPanel(
@@ -73,7 +69,7 @@ appUI_main_input <- function(id, geneSignatures, hallmarkGeneSets){
         inputTabUI_selector(ns("input")),
         inputTabUI_sidebar(ns("input"))), 
       column_10(
-        inputTabUI_main(ns("input"), geneSignatures, hallmarkGeneSets)
+        inputTabUI_main(ns("input"))
       )
     )
   )
@@ -85,7 +81,7 @@ appUI_main_overview <- function(id) {
   tabPanel(title = "Overview", tissueOverviewTabUI(ns("overview")))
 }
 
-appUI_main_analysis <- function(id, geneSignatures, hallmarkGeneSets) {
+appUI_main_analysis <- function(id) {
   
   ns <- NS(id)
   tabset <- tabPanel(
@@ -114,6 +110,7 @@ appUI_main_analysis <- function(id, geneSignatures, hallmarkGeneSets) {
 #' @param fm future manager object
 #' @param settings cliff settings
 #' @param geneSignatures result of the \code{getAvailableGeneSignatures}
+#' @param hallmarkGeneSets result of the \code{getAvailableHallmarkGeneSets}
 #'
 #' @details It should not be called directly by the user.
 #' Please use \code{TIFF::run()}.
@@ -121,7 +118,7 @@ appUI_main_analysis <- function(id, geneSignatures, hallmarkGeneSets) {
 #' @return shiny app server
 #' @export
 #'
-app <- function(input, output, session, fm, settings, geneSignatures){
+app <- function(input, output, session, fm, settings, geneSignatures, hallmarkGeneSets){
   # Parse settings ------------------------------------------------------------
   msigDBLink <- settings[["links"]][["msigDBLink"]]
   species <- settings[["species"]]

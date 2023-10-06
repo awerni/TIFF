@@ -1,4 +1,4 @@
-inputTabUI_main <- function(id, geneSignatures, hallmarkGeneSets){
+inputTabUI_main <- function(id){
   ns <- NS(id)
   
   makeCondition <- function(x){
@@ -54,11 +54,11 @@ inputTabUI_main <- function(id, geneSignatures, hallmarkGeneSets){
     ),
     conditionalPanel(
       condition = makeCondition("gene_signature"),
-      geneSignatureInputModeUI(ns("gene_sig"), geneSignatures)
+      geneSignatureInputModeUI(ns("gene_sig"))
     ),
     conditionalPanel(
       condition = makeCondition("hallmark_set"),
-      hallmarkSetsInputModeUI(ns("hallmark"), hallmarkGeneSets)
+      hallmarkSetsInputModeUI(ns("hallmark"))
     ),
     conditionalPanel(
       condition = makeCondition("multiple_features"),

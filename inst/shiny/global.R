@@ -16,6 +16,3 @@ if (!initialSettingsCheck(settings)) stop("Initial check failed!")
 strategy <- getFmStrategy(settings)
 FutureManager::plan(strategy, substitute = FALSE)
 setDbOptions(settings)
-
-geneSignatures <- getAvailableGeneSignatures()
-hallmarkGeneSets <- getAvailableHallmarkGeneSets()
