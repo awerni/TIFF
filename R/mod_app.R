@@ -40,7 +40,7 @@ appUI <- function(settings) {
       bslib::nav_item(appUI_title(appId, "Tissue Differences", "TIFF.png")),
       appUI_main_input(appId),
       appUI_main_overview(appId),
-      appUI_main_analysis(appId,),
+      appUI_main_analysis(appId),
       XIFF::appUI_main_machine_learning(appId),
       XIFF::appUI_main_about(
         appId,
@@ -245,7 +245,8 @@ app <- function(input, output, session, fm, settings, geneSignatures, hallmarkGe
     TissueAnnotation = TissuePatientAnnotationFull, 
     TissueAnnotationFocus = TissuePatientAnnotationFocus, 
     PatientAnnotationFuller = PatientAnnotationFuller,
-    geneSignatures = geneSignatures
+    geneSignatures = geneSignatures,
+    hallmarkGeneSets = hallmarkGeneSets
   )
   
   callModule(

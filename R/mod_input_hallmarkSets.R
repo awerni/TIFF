@@ -1,7 +1,6 @@
 # UI --------------------------------------------------------------------------
 hallmarkSetsInputModeUI <- function(id){
   ns <- NS(id)
-  choices <- getHallmarkGeneSetChoices(sort(geneSets))
   
   list(
     fluidRow(
@@ -22,9 +21,11 @@ hallmarkSetsInputMode <- function(input, output, session, TissuePrefilter,
                                   geneSets, default = "HALLMARK_APOPTOSIS"){
   
   output$indicator <- renderUI({
+    choices <- getHallmarkGeneSetChoices(sort(geneSets))
+    
     updateSelectInput(
       inputId = "geneset",
-      choices = geneSets,
+      choices = choices,
       selected = default
     )
     

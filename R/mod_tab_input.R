@@ -156,7 +156,8 @@ inputTabUI_sidebar <- function(id){
 }
 
 inputTab <- function(input, output, session, classSelection, classLabel, classStack, fm, species,
-                     TissueAnnotation, TissueAnnotationFocus, PatientAnnotationFuller, geneSignatures){
+                     TissueAnnotation, TissueAnnotationFocus, PatientAnnotationFuller, 
+                     geneSignatures, hallmarkGeneSets){
   output$indicator <- renderUI({
     shinyjs::show("panel")
     NULL
@@ -249,7 +250,8 @@ inputTab <- function(input, output, session, classSelection, classLabel, classSt
   HallmarkSet_ti <- callModule(
     module = hallmarkSetsInputMode,
     id = "hallmark",
-    TissuePrefilter = TissuePrefilter
+    TissuePrefilter = TissuePrefilter,
+    geneSets = hallmarkGeneSets
   )
   
   MultipleFeatures_ti <- callModule(
