@@ -1,4 +1,4 @@
-inputTabUI_main <- function(id, geneSignatures, hallmarkGeneSets){
+inputTabUI_main <- function(id){
   ns <- NS(id)
   
   makeCondition <- function(x){
@@ -54,11 +54,11 @@ inputTabUI_main <- function(id, geneSignatures, hallmarkGeneSets){
     ),
     conditionalPanel(
       condition = makeCondition("gene_signature"),
-      geneSignatureInputModeUI(ns("gene_sig"), geneSignatures)
+      geneSignatureInputModeUI(ns("gene_sig"))
     ),
     conditionalPanel(
       condition = makeCondition("hallmark_set"),
-      hallmarkSetsInputModeUI(ns("hallmark"), hallmarkGeneSets)
+      hallmarkSetsInputModeUI(ns("hallmark"))
     ),
     conditionalPanel(
       condition = makeCondition("multiple_features"),
@@ -156,7 +156,8 @@ inputTabUI_sidebar <- function(id){
 }
 
 inputTab <- function(input, output, session, classSelection, classLabel, classStack, fm, species,
-                     TissueAnnotation, TissueAnnotationFocus, PatientAnnotationFuller, geneSignatures){
+                     TissueAnnotation, TissueAnnotationFocus, PatientAnnotationFuller, 
+                     geneSignatures, hallmarkGeneSets){
   output$indicator <- renderUI({
     shinyjs::show("panel")
     NULL
@@ -249,7 +250,8 @@ inputTab <- function(input, output, session, classSelection, classLabel, classSt
   HallmarkSet_ti <- callModule(
     module = hallmarkSetsInputMode,
     id = "hallmark",
-    TissuePrefilter = TissuePrefilter
+    TissuePrefilter = TissuePrefilter,
+    geneSets = hallmarkGeneSets
   )
   
   MultipleFeatures_ti <- callModule(

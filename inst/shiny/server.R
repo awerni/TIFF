@@ -5,6 +5,9 @@ shinyServer(function(input, output, session) {
     stop("Initial check failed!")
   }
   
+  geneSignatures <- getAvailableGeneSignatures()
+  hallmarkGeneSets <- getAvailableHallmarkGeneSets()
+  
   fm <- FutureManager::FutureManager$new(
     input = input,
     session = session,
@@ -20,6 +23,7 @@ shinyServer(function(input, output, session) {
     id = "app",
     fm = fm,
     settings = settings,
-    geneSignatures = geneSignatures
+    geneSignatures = geneSignatures,
+    hallmarkGeneSets = hallmarkGeneSets
   )
 })
