@@ -14,7 +14,8 @@ mutationInputModeUI <- function(id){
       ),
       column_5(
         br(),
-        h3(textOutput(ns("genename"))))
+        h3(textOutput(ns("genename")))
+      )
     ),
     br(),
     tabsetPanel(

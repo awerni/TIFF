@@ -88,3 +88,12 @@ findItemColumn <- function(df, anno, colname = "tissuename"){
     names(df)[which.max(nCommonValues)]
   } # else NULL
 }
+
+processMutationInfo <- function(x, width){
+  x <- ifelse(
+    test = nchar(x) > width,
+    yes = paste0(stringr::str_sub(x, end = -2L), "..."), # remove last character
+    no = x
+  )
+  gsub(";", "; ", x)
+}
