@@ -93,6 +93,8 @@ getGeneAnno <- function(species) {
 #' Returns mutation information related to the specified gene ID
 #' 
 #' @param ensg character string, gene ID
+#' @param width interger, number of characters to show in `dnamutation` and
+#' `aamutation` fields
 #' @param prefilter TiffPrefilter object (see \code{\link{makePrefilter}})
 #' @return data.frame with fields: tissuename, tumortype, dnamutation, aamutation,
 #' aamutated, histology_type, histology_subtype
@@ -105,7 +107,7 @@ getGeneAnno <- function(species) {
 #' ensg <- "ENSG00000133703"
 #' getInfoMutation(ensg, prefilter)
 #' 
-getInfoMutation <- function(ensg, prefilter){
+getInfoMutation <- function(ensg, prefilter, width = 50){
   sql <- preparePrefilterSql(
     SELECT = c(
       "ps.tissuename", "dnamutation", "aamutation", 
@@ -122,7 +124,15 @@ getInfoMutation <- function(ensg, prefilter){
     ),
     prefilter = prefilter
   )
-  getPostgresql(sql)
+  
+  mut <- getPostgresql(sql)
+  if (nrow(mut) == 0) return()
+  
+  mut %>% mutate(
+    dnamutation = processMutationInfo(dnamutation, width = width),
+    aamutation = processMutationInfo(aamutation, width = width),
+    tumortype = as.factor(tumortype)
+  )
 }
 
 
