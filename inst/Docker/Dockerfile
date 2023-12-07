@@ -14,14 +14,9 @@ RUN apt-get update && apt-get install -y \
   libxml2-dev \
   libcurl4-gnutls-dev \
   libfontconfig1-dev \
-  libcairo2-dev \
-  python3-pip \
-  libpython3-dev
-  
-RUN python3 -m pip install --no-cache-dir --break-system-packages phate
+  libcairo2-dev 
 
-RUN apt-get remove -y python3-pip && \
-  apt autoremove -y
+RUN apt autoremove -y
 
 RUN R -e 'install.packages("remotes")'
 RUN R -e 'remotes::install_version("renv", version="'${RENV_VERSION}'")'
