@@ -22,3 +22,4 @@ COPY Rprofile.site /usr/lib/R/etc/
 EXPOSE 3838
 
 CMD ["Rscript", "-e", "TIFF::run()"]
+
