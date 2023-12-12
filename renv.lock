@@ -150,52 +150,6 @@
       ],
       "Hash": "eb05547d6e849efcd0a899f31f623306"
     },
-    "CLIFF": {
-      "Package": "CLIFF",
-      "Version": "3.0.3",
-      "Source": "unknown",
-      "Requirements": [
-        "DBI",
-        "DT",
-        "FutureManager",
-        "ModelMetrics",
-        "R",
-        "RPostgres",
-        "XIFF",
-        "broom",
-        "bslib",
-        "caret",
-        "config",
-        "dplyr",
-        "edgeR",
-        "forcats",
-        "gage",
-        "genefilter",
-        "gggenes",
-        "ggplot2",
-        "ggrepel",
-        "glue",
-        "grid",
-        "htmlwidgets",
-        "limma",
-        "logger",
-        "matrixStats",
-        "matrixTests",
-        "purrr",
-        "readr",
-        "rlang",
-        "scales",
-        "shiny",
-        "shinyBS",
-        "shinyjs",
-        "shinythemes",
-        "stringr",
-        "tibble",
-        "tidyr",
-        "withr"
-      ],
-      "Hash": "03eb9671cb4ff428463ca798dd2d5b83"
-    },
     "DBI": {
       "Package": "DBI",
       "Version": "1.1.3",
@@ -813,26 +767,6 @@
         "utils"
       ],
       "Hash": "4f57884290cc75ab22f4af9e9d4ca862"
-    },
-    "annotate": {
-      "Package": "annotate",
-      "Version": "1.78.0",
-      "Source": "Bioconductor",
-      "Requirements": [
-        "AnnotationDbi",
-        "Biobase",
-        "BiocGenerics",
-        "DBI",
-        "R",
-        "XML",
-        "graphics",
-        "httr",
-        "methods",
-        "stats",
-        "utils",
-        "xtable"
-      ],
-      "Hash": "40b2618966a1bdfbcd48ea4b8ac03a39"
     },
     "anytime": {
       "Package": "anytime",
@@ -1750,23 +1684,6 @@
       ],
       "Hash": "fc0b272e5847c58cd5da9b20eedbd026"
     },
-    "genefilter": {
-      "Package": "genefilter",
-      "Version": "1.82.1",
-      "Source": "Bioconductor",
-      "Requirements": [
-        "AnnotationDbi",
-        "Biobase",
-        "MatrixGenerics",
-        "annotate",
-        "grDevices",
-        "graphics",
-        "methods",
-        "stats",
-        "survival"
-      ],
-      "Hash": "c5fe790c45d3e9f6dd308ff07fe66184"
-    },
     "generics": {
       "Package": "generics",
       "Version": "0.1.3",
@@ -1777,35 +1694,6 @@
         "methods"
       ],
       "Hash": "15e9634c0fcd294799e9b2e929ed1b86"
-    },
-    "ggfittext": {
-      "Package": "ggfittext",
-      "Version": "0.10.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "ggplot2",
-        "grid",
-        "gridtext",
-        "shades",
-        "stringi"
-      ],
-      "Hash": "971abd943dd56877fc3dc2ce56991385"
-    },
-    "gggenes": {
-      "Package": "gggenes",
-      "Version": "0.5.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "ggfittext",
-        "ggplot2",
-        "grid",
-        "rlang"
-      ],
-      "Hash": "ee290861ad47a1987036c8d832b52dd2"
     },
     "ggplot2": {
       "Package": "ggplot2",
@@ -3300,20 +3188,6 @@
       ],
       "Hash": "76c9e04c712a05848ae7a23d2f170a40"
     },
-    "remotes": {
-      "Package": "remotes",
-      "Version": "2.4.2.1",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "methods",
-        "stats",
-        "tools",
-        "utils"
-      ],
-      "Hash": "63d15047eb239f95160112bcadc4fcb9"
-    },
     "renv": {
       "Package": "renv",
       "Version": "1.0.3",
@@ -3548,13 +3422,6 @@
         "stringr"
       ],
       "Hash": "3838071b66e0c566d55cc26bd6e27bf4"
-    },
-    "shades": {
-      "Package": "shades",
-      "Version": "1.4.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "3a2cf5eecb2cbca814d01d56bfb51494"
     },
     "shape": {
       "Package": "shape",
