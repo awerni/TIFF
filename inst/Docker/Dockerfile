@@ -14,7 +14,14 @@ RUN apt-get update && apt-get install -y \
   libxml2-dev \
   libcurl4-gnutls-dev \
   libfontconfig1-dev \
-  libcairo2-dev 
+  libcairo2-dev \
+  cmake \
+  libnlopt-dev  \
+  libharfbuzz-dev libfribidi-dev \ 
+  libpng-dev \
+  libtiff5-dev \
+  libjpeg-dev \
+  libfreetype-dev
 
 RUN apt autoremove -y
 
@@ -29,6 +36,8 @@ RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); 
 RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); renv::restore(library = .libPaths()[1], packages = "dplyr")'
 RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); renv::restore(library = .libPaths()[1], packages = "ggtips")'
 RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); renv::restore(library = .libPaths()[1], packages = "DESeq2")'
+RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); renv::restore(library = .libPaths()[1], packages = "tidyverse")'
+RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); renv::restore(library = .libPaths()[1], packages = "shinytest")'
 RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); renv::restore(library = .libPaths()[1], exclude = "XIFF")'
 RUN rm -rf /renvtmp
 
