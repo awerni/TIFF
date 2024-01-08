@@ -21,40 +21,36 @@ RUN apt-get update && apt-get install -y \
   libpng-dev \
   libtiff5-dev \
   libjpeg-dev \
-  libfreetype-dev
+  libfreetype-dev \
+  curl # renv needs it to avoid FD_SETSIZE errors
 
 RUN apt autoremove -y
 
 RUN R -e 'install.packages("remotes")'
 RUN R -e 'remotes::install_version("renv", version="'${RENV_VERSION}'")'
 
-RUN mkdir /renvtmp /app
+RUN mkdir /renvtmp /install /app
 COPY TIFF/renv.lock /renvtmp/renv.lock
 
-# install "heavy deps" separately to avoid strange error: bit out of range 0 FD_SETSIZE on fd_set
-RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); renv::restore(library = .libPaths()[1], packages = "shiny")'
-RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); renv::restore(library = .libPaths()[1], packages = "dplyr")'
-RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); renv::restore(library = .libPaths()[1], packages = "ggtips")'
-RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); renv::restore(library = .libPaths()[1], packages = "DESeq2")'
-RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); renv::restore(library = .libPaths()[1], packages = "tidyverse")'
-RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); renv::restore(library = .libPaths()[1], packages = "shinytest")'
 RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); renv::restore(library = .libPaths()[1], exclude = "XIFF")'
 RUN rm -rf /renvtmp
 
-COPY XIFF /app/XIFF
-COPY TIFF /app/TIFF
+COPY XIFF /install/XIFF
+RUN R -e 'renv::install("/install/XIFF")'
 
-RUN R -e 'renv::install("/app/XIFF")'
-RUN R -e 'renv::install("/app/TIFF")'
+COPY TIFF /install/TIFF
+RUN R -e 'renv::install("/install/TIFF")'
 
 #RUN R -e 'shiny::runTests("/app/general")'
 
-RUN rm -rf /app
+RUN rm -rf /install
+
+RUN chmod -R 655 /app
 
 RUN useradd -m tiffuser
 USER tiffuser
 
+WORKDIR /app
 EXPOSE 3838
-WORKDIR /home/tiffuser
 
 CMD ["Rscript", "-e", "TIFF::run(port=3838, host='0.0.0.0')"]
