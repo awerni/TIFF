@@ -14,7 +14,7 @@ makeTextCallback(scoreTemplate, sigx = 4, sigy = 4)
 \item{sigy}{indicating the number of decimal places for ry.}
 }
 \value{
-
+function
 }
 \description{
 Utility function for making the text callback function.

@@ -15,7 +15,7 @@ value should be good in most cases.}
 \item{...}{other arguments passed to the print method, discarded.}
 }
 \value{
-
+invisible x
 }
 \description{
 Print TiffPrefilter object

@@ -7,7 +7,7 @@
 getAvailableImmuneCellTypes()
 }
 \value{
-
+character vector
 }
 \description{
 Get Available Immune Cell Types

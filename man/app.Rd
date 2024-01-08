@@ -4,7 +4,7 @@
 \alias{app}
 \title{TIFF App server function.}
 \usage{
-app(input, output, session, fm, settings, geneSignatures)
+app(input, output, session, fm, settings, geneSignatures, hallmarkGeneSets)
 }
 \arguments{
 \item{input}{shiny input}
@@ -18,6 +18,8 @@ app(input, output, session, fm, settings, geneSignatures)
 \item{settings}{cliff settings}
 
 \item{geneSignatures}{result of the \code{getAvailableGeneSignatures}}
+
+\item{hallmarkGeneSets}{result of the \code{getAvailableHallmarkGeneSets}}
 }
 \value{
 shiny app server

@@ -93,6 +93,8 @@ getGeneAnno <- function(species) {
 #' Returns mutation information related to the specified gene ID
 #' 
 #' @param ensg character string, gene ID
+#' @param width interger, number of characters to show in `dnamutation` and
+#' `aamutation` fields
 #' @param prefilter TiffPrefilter object (see \code{\link{makePrefilter}})
 #' @return data.frame with fields: tissuename, tumortype, dnamutation, aamutation,
 #' aamutated, histology_type, histology_subtype
@@ -105,7 +107,7 @@ getGeneAnno <- function(species) {
 #' ensg <- "ENSG00000133703"
 #' getInfoMutation(ensg, prefilter)
 #' 
-getInfoMutation <- function(ensg, prefilter){
+getInfoMutation <- function(ensg, prefilter, width = 50){
   sql <- preparePrefilterSql(
     SELECT = c(
       "ps.tissuename", "dnamutation", "aamutation", 
@@ -122,7 +124,15 @@ getInfoMutation <- function(ensg, prefilter){
     ),
     prefilter = prefilter
   )
-  getPostgresql(sql)
+  
+  mut <- getPostgresql(sql)
+  if (nrow(mut) == 0) return()
+  
+  mut %>% mutate(
+    dnamutation = processMutationInfo(dnamutation, width = width),
+    aamutation = processMutationInfo(aamutation, width = width),
+    tumortype = as.factor(tumortype)
+  )
 }
 
 
@@ -130,7 +140,7 @@ getInfoMutation <- function(ensg, prefilter){
 #'
 #' @param tissuenames vector of tissuenames or classAssigment object
 #'
-#' @return
+#' @return character vector
 #' @export
 #'
 #' @examples
@@ -658,7 +668,7 @@ getTissueDataImmuneCellsById <- function(cellType, tissueClasses, addRownames = 
 
 #' Get Available Immune Cell Types
 #'
-#' @return
+#' @return character vector
 #' @export
 #'
 #' @examples
@@ -734,7 +744,7 @@ getTissueDataMetabolics <- function(tissuenames){
 #' @param addRownames if TRUE (default) tissuenames are added 
 #' as rownames to the output table.
 #'
-#' @return
+#' @return data.frame
 #' @export
 #'
 #' @examples
@@ -869,7 +879,7 @@ getTissueDataSignaling <- function(tissuenames){
 #' @param addRownames if TRUE (default), the tissue names are added as rownames
 #' to the output table
 #'
-#' @return
+#' @return data.frame
 #' @export
 #'
 #' @examples
@@ -922,7 +932,7 @@ getWaterfallDataClones <- function(score, prefilter) {
 #' @param tissuenames vector of tissuenames or classAssigment object
 #' @param scores vector of scores to be extracted
 #'
-#' @return
+#' @return data.frame
 #' @export
 #'
 #' @examples
@@ -1504,7 +1514,7 @@ getTissueDataCommonById <- function(sql, tissues = NULL, conditionSql = NULL,
 #' @param JOIN join statement
 #'
 #' @noRd
-#' @return
+#' @return character string
 #' @examples
 #' 
 #' setDbOptions(getSettings())
@@ -1614,7 +1624,7 @@ exampleClassAssigment <- memoise::memoise(.exampleClassAssigment)
 #' @param tissueType string denoting tissue type
 #' @param selected vector of selected tissue types
 #'
-#' @return
+#' @return TiffPrefilter object
 #' @export
 #'
 #' @examples
@@ -1712,9 +1722,8 @@ makePrefilter <- function(tissueType = c("tumor", "adjacent normal", "normal", "
 #'        value should be good in most cases.
 #' @param ... other arguments passed to the print method, discarded.
 #'
-#' @return
+#' @return invisible x
 #' @export
-#' @exportS3Method base::print 
 #'
 #' @examples
 #' x <- makePrefilter("tumor")
