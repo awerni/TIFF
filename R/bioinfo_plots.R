@@ -129,7 +129,7 @@ generateMutationPieChart <-  function(gene, mutation, sampleClasses, classLabel)
   
   ggplot(data_sum, aes(x = 1, y = percent, fill = aamutated)) + 
     geom_bar(stat = "identity") + 
-    facet_grid(facets = . ~ class) + 
+    facet_wrap(facets = . ~ class) + 
     coord_polar(theta = "y") + 
     ggtitle(paste("\n", gene$symbol, "-", gene$ensg)) + 
     xlab("") + 
@@ -822,7 +822,7 @@ generateSignalingPieChart <- function(data, title = NULL){
     mapping = aes(x = 1, y = percent, fill = state)
   ) + 
     geom_bar(stat = "identity") + 
-    facet_grid(facets = . ~ label) + 
+    facet_wrap(facets = . ~ label) + 
     coord_polar(theta = "y") + 
     ggtitle(title) + 
     xlab("") + 
