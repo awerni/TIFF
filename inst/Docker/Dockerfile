@@ -32,11 +32,14 @@ RUN R -e 'remotes::install_version("renv", version="'${RENV_VERSION}'")'
 RUN mkdir /renvtmp /install /app
 COPY TIFF/renv.lock /renvtmp/renv.lock
 
-RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); renv::restore(library = .libPaths()[1], exclude = "XIFF")'
+RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); renv::restore(library = .libPaths()[1], exclude = c("XIFF", "CLIFF"))'
 RUN rm -rf /renvtmp
 
 COPY XIFF /install/XIFF
 RUN R -e 'renv::install("/install/XIFF")'
+
+COPY CLIFF /install/CLIFF
+RUN R -e 'renv::install("/install/CLIFF")'
 
 COPY TIFF /install/TIFF
 RUN R -e 'renv::install("/install/TIFF")'
