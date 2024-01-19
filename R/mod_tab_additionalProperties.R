@@ -25,7 +25,8 @@ additionalPropertiesTabUI <- function(id){
 }
 
 additionalPropertiesTab <- function(input, output, session, classSelection, classLabel, 
-                                    TissueAnnotationFocus, Result_otherPropStatistic, msigDBLink){
+                                    TissueAnnotationFocus, Result_otherPropStatistic, 
+                                    msigDBLink, geneSignatures){
   callModule(
     module = additionalPropertiesClassComparisonTab,
     id = "comparison",
@@ -40,7 +41,8 @@ additionalPropertiesTab <- function(input, output, session, classSelection, clas
     id = "gene_signatures",
     classSelection = classSelection, 
     classLabel = classLabel, 
-    TissueAnnotationFocus = TissueAnnotationFocus
+    TissueAnnotationFocus = TissueAnnotationFocus,
+    geneSignatures = geneSignatures
   )
   
   callModule(

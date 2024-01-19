@@ -313,7 +313,8 @@ app <- function(input, output, session, fm, settings, geneSignatures, hallmarkGe
     classLabel = classLabel, 
     TissueAnnotationFocus = TissuePatientAnnotationFocus, 
     Result_otherPropStatistic = Result_otherPropStatistic,
-    msigDBLink = msigDBLink
+    msigDBLink = msigDBLink,
+    geneSignatures = geneSignatures
   )
   
   callModule(

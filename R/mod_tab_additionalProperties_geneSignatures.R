@@ -20,7 +20,8 @@ additionalPropertiesGeneSignaturesTabUI_sidebar <- function(id){
   )
 }
 
-additionalPropertiesGeneSignaturesTab <- function(input, output, session, classSelection, classLabel, TissueAnnotationFocus){
+additionalPropertiesGeneSignaturesTab <- function(input, output, session, classSelection, 
+                                                  classLabel, TissueAnnotationFocus, geneSignatures){
   # Reactives -----------------------------------------------------------------
   Result_signature <- reactive({
     validate(
