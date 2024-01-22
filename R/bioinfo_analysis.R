@@ -339,6 +339,10 @@ getTissueCounts <- function(tissueClasses) {
     return("tissues from both classes need to be available")
   }
   
+  if (length(class1) == 1 && length(class2) == 1){
+    return("1 vs 1 tissue comparison not possible")
+  }
+  
   ensg_sufficient_counts <- counts.long %>%
     group_by(ensg) %>%
     summarise(count_max_ok = max(counts, na.rm = TRUE) >= 20, .groups = "drop") %>%
