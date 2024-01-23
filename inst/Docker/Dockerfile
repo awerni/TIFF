@@ -15,13 +15,8 @@ RUN apt-get update && apt-get install -y \
   libcurl4-gnutls-dev \
   libfontconfig1-dev \
   libcairo2-dev \
+  libnlopt-dev \
   cmake \
-  libnlopt-dev  \
-  libharfbuzz-dev libfribidi-dev \ 
-  libpng-dev \
-  libtiff5-dev \
-  libjpeg-dev \
-  libfreetype-dev \
   curl # renv needs it to avoid FD_SETSIZE errors
 
 RUN apt autoremove -y
@@ -34,6 +29,12 @@ COPY TIFF/renv.lock /renvtmp/renv.lock
 
 RUN cd /renvtmp && R -e 'options(timeout=600); renv::settings$use.cache(FALSE); renv::restore(library = .libPaths()[1], exclude = c("XIFF", "CLIFF"))'
 RUN rm -rf /renvtmp
+
+# install phate python lib required by phateR R package
+RUN apt-get install -y python3-pip libpython3-dev && \
+ python3 -m pip install --no-cache-dir --break-system-packages phate && \
+ apt-get remove -y python3-pip && \
+ apt autoremove -y
 
 COPY XIFF /install/XIFF
 RUN R -e 'renv::install("/install/XIFF")'

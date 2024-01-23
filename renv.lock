@@ -152,12 +152,12 @@
     },
     "CLIFF": {
       "Package": "CLIFF",
-      "Version": "3.0.5",
+      "Version": "3.0.6",
       "Source": "Git",
       "RemoteType": "xgit",
       "RemoteUrl": "git@ssh.dev.azure.com:v3/pierrefabre/Ardigen/CLIFF",
       "RemoteRef": "develop",
-      "RemoteSha": "2027d5576363dd085cdb0bc66401afdda34ccf89",
+      "RemoteSha": "e2b4b45a2dd998a1797f36752700654f07628095",
       "Requirements": [
         "DBI",
         "DT",
@@ -199,7 +199,7 @@
         "tidyr",
         "withr"
       ],
-      "Hash": "059e4f707943d0a7121f5aa6d54fdf8b"
+      "Hash": "c181a15c41400fd7fffdfc13df14055a"
     },
     "DBI": {
       "Package": "DBI",
@@ -722,12 +722,12 @@
     },
     "XIFF": {
       "Package": "XIFF",
-      "Version": "0.2.6",
+      "Version": "0.2.7",
       "Source": "Git",
       "RemoteType": "xgit",
       "RemoteUrl": "git@ssh.dev.azure.com:v3/pierrefabre/Ardigen/XIFF",
       "RemoteRef": "develop",
-      "RemoteSha": "develop",
+      "RemoteSha": "bc989a60741c88bd9ff88bc36b417d17ce4a897c",
       "Requirements": [
         "Boruta",
         "DBI",
@@ -759,6 +759,7 @@
         "magrittr",
         "matrixTests",
         "neuralnet",
+        "phateR",
         "pheatmap",
         "plotROC",
         "purrr",
@@ -780,7 +781,7 @@
         "utils",
         "xfun"
       ],
-      "Hash": "c9f2e0f50a124d1399e256f7b5795805"
+      "Hash": "c445558cffaf74642d89acc106788fda"
     },
     "XML": {
       "Package": "XML",
@@ -1214,19 +1215,6 @@
       ],
       "Hash": "8b7222e9d9eb5178eea545c0c4d33fc2"
     },
-    "conflicted": {
-      "Package": "conflicted",
-      "Version": "1.2.0",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "cli",
-        "memoise",
-        "rlang"
-      ],
-      "Hash": "bb097fccb22d156624fd07cd2894ddb6"
-    },
     "corrplot": {
       "Package": "corrplot",
       "Version": "0.92",
@@ -1306,34 +1294,6 @@
         "methods"
       ],
       "Hash": "b4c06e554f33344e044ccd7fdca750a9"
-    },
-    "dbplyr": {
-      "Package": "dbplyr",
-      "Version": "2.3.4",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "DBI",
-        "R",
-        "R6",
-        "blob",
-        "cli",
-        "dplyr",
-        "glue",
-        "lifecycle",
-        "magrittr",
-        "methods",
-        "pillar",
-        "purrr",
-        "rlang",
-        "tibble",
-        "tidyr",
-        "tidyselect",
-        "utils",
-        "vctrs",
-        "withr"
-      ],
-      "Hash": "63534894354af6b2587b7aa518a5193a"
     },
     "debugme": {
       "Package": "debugme",
@@ -1452,25 +1412,6 @@
         "vctrs"
       ],
       "Hash": "fedd9d00c2944ff00a0e2696ccf048ec"
-    },
-    "dtplyr": {
-      "Package": "dtplyr",
-      "Version": "1.3.1",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "cli",
-        "data.table",
-        "dplyr",
-        "glue",
-        "lifecycle",
-        "rlang",
-        "tibble",
-        "tidyselect",
-        "vctrs"
-      ],
-      "Hash": "54ed3ea01b11e81a86544faaecfef8e2"
     },
     "e1071": {
       "Package": "e1071",
@@ -1736,28 +1677,6 @@
       ],
       "Hash": "a4a51fa0b0b4faf309aea9ada9e1229f"
     },
-    "gargle": {
-      "Package": "gargle",
-      "Version": "1.5.2",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "cli",
-        "fs",
-        "glue",
-        "httr",
-        "jsonlite",
-        "lifecycle",
-        "openssl",
-        "rappdirs",
-        "rlang",
-        "stats",
-        "utils",
-        "withr"
-      ],
-      "Hash": "fc0b272e5847c58cd5da9b20eedbd026"
-    },
     "genefilter": {
       "Package": "genefilter",
       "Version": "1.82.1",
@@ -1986,59 +1905,6 @@
       ],
       "Hash": "4f2596dfb05dac67b9dc558e5c6fba2e"
     },
-    "googledrive": {
-      "Package": "googledrive",
-      "Version": "2.1.1",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "cli",
-        "gargle",
-        "glue",
-        "httr",
-        "jsonlite",
-        "lifecycle",
-        "magrittr",
-        "pillar",
-        "purrr",
-        "rlang",
-        "tibble",
-        "utils",
-        "uuid",
-        "vctrs",
-        "withr"
-      ],
-      "Hash": "e99641edef03e2a5e87f0a0b1fcc97f4"
-    },
-    "googlesheets4": {
-      "Package": "googlesheets4",
-      "Version": "1.1.1",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "cellranger",
-        "cli",
-        "curl",
-        "gargle",
-        "glue",
-        "googledrive",
-        "httr",
-        "ids",
-        "lifecycle",
-        "magrittr",
-        "methods",
-        "purrr",
-        "rematch2",
-        "rlang",
-        "tibble",
-        "utils",
-        "vctrs",
-        "withr"
-      ],
-      "Hash": "d6db1667059d027da730decdc214b959"
-    },
     "gower": {
       "Package": "gower",
       "Version": "1.0.1",
@@ -2140,27 +2006,6 @@
       ],
       "Hash": "b56b42c50bb7c76a683e8e61f415d828"
     },
-    "haven": {
-      "Package": "haven",
-      "Version": "2.5.3",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "cli",
-        "cpp11",
-        "forcats",
-        "hms",
-        "lifecycle",
-        "methods",
-        "readr",
-        "rlang",
-        "tibble",
-        "tidyselect",
-        "vctrs"
-      ],
-      "Hash": "9b302fe352f9cfc5dcf0a4139af3a565"
-    },
     "here": {
       "Package": "here",
       "Version": "1.0.1",
@@ -2257,17 +2102,6 @@
         "openssl"
       ],
       "Hash": "ac107251d9d9fd72f0ca8049988f1d7f"
-    },
-    "ids": {
-      "Package": "ids",
-      "Version": "1.0.1",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "openssl",
-        "uuid"
-      ],
-      "Hash": "99df65cfef20e525ed38c3d2577f7190"
     },
     "ipred": {
       "Package": "ipred",
@@ -2674,24 +2508,6 @@
       ],
       "Hash": "f48238f8d4740426ca12f53f27d004dd"
     },
-    "modelr": {
-      "Package": "modelr",
-      "Version": "0.1.11",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "broom",
-        "magrittr",
-        "purrr",
-        "rlang",
-        "tibble",
-        "tidyr",
-        "tidyselect",
-        "vctrs"
-      ],
-      "Hash": "4f50122dc256b1b6996a4703fecea821"
-    },
     "modeltools": {
       "Package": "modeltools",
       "Version": "0.2-23",
@@ -2847,6 +2663,23 @@
         "parallel"
       ],
       "Hash": "3b5b99f4d3f067bb9c1d59317d071370"
+    },
+    "phateR": {
+      "Package": "phateR",
+      "Version": "1.0.7",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "Matrix",
+        "R",
+        "ggplot2",
+        "graphics",
+        "memoise",
+        "methods",
+        "reticulate",
+        "stats"
+      ],
+      "Hash": "4a2fd4e319204bb045ace8afd4befb57"
     },
     "pheatmap": {
       "Package": "pheatmap",
@@ -3329,28 +3162,6 @@
       ],
       "Hash": "41b847654f567341725473431dd0d5ab"
     },
-    "reprex": {
-      "Package": "reprex",
-      "Version": "2.0.2",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "callr",
-        "cli",
-        "clipr",
-        "fs",
-        "glue",
-        "knitr",
-        "lifecycle",
-        "rlang",
-        "rmarkdown",
-        "rstudioapi",
-        "utils",
-        "withr"
-      ],
-      "Hash": "d66fe009d4c20b7ab1927eb405db9ee2"
-    },
     "reshape2": {
       "Package": "reshape2",
       "Version": "1.4.4",
@@ -3489,26 +3300,6 @@
       "Repository": "RSPM",
       "Hash": "5564500e25cffad9e22244ced1379887"
     },
-    "rvest": {
-      "Package": "rvest",
-      "Version": "1.0.3",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "cli",
-        "glue",
-        "httr",
-        "lifecycle",
-        "magrittr",
-        "rlang",
-        "selectr",
-        "tibble",
-        "withr",
-        "xml2"
-      ],
-      "Hash": "a4a5ac819a467808c60e36e92ddf195e"
-    },
     "sass": {
       "Package": "sass",
       "Version": "0.4.7",
@@ -3540,19 +3331,6 @@
         "viridisLite"
       ],
       "Hash": "906cb23d2f1c5680b8ce439b44c6fa63"
-    },
-    "selectr": {
-      "Package": "selectr",
-      "Version": "0.4-2",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "R6",
-        "methods",
-        "stringr"
-      ],
-      "Hash": "3838071b66e0c566d55cc26bd6e27bf4"
     },
     "shades": {
       "Package": "shades",
@@ -3948,46 +3726,6 @@
       ],
       "Hash": "79540e5fcd9e0435af547d885f184fd5"
     },
-    "tidyverse": {
-      "Package": "tidyverse",
-      "Version": "2.0.0",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "broom",
-        "cli",
-        "conflicted",
-        "dbplyr",
-        "dplyr",
-        "dtplyr",
-        "forcats",
-        "ggplot2",
-        "googledrive",
-        "googlesheets4",
-        "haven",
-        "hms",
-        "httr",
-        "jsonlite",
-        "lubridate",
-        "magrittr",
-        "modelr",
-        "pillar",
-        "purrr",
-        "ragg",
-        "readr",
-        "readxl",
-        "reprex",
-        "rlang",
-        "rstudioapi",
-        "rvest",
-        "stringr",
-        "tibble",
-        "tidyr",
-        "xml2"
-      ],
-      "Hash": "c328568cd14ea89a83bd4ca7f54ae07e"
-    },
     "timeDate": {
       "Package": "timeDate",
       "Version": "4022.108",
@@ -4060,16 +3798,6 @@
         "R"
       ],
       "Hash": "62b65c52671e6665f803ff02954446e9"
-    },
-    "uuid": {
-      "Package": "uuid",
-      "Version": "1.1-1",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R"
-      ],
-      "Hash": "3d78edfb977a69fc7a0341bee25e163f"
     },
     "vctrs": {
       "Package": "vctrs",

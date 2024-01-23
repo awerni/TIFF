@@ -25,7 +25,8 @@ on gene expression and explore their sub-type.
 ```{r setup}
 library(XIFF)
 library(TIFF)
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 ```
 
 ## Database connection, tissue and gene annotation
