@@ -1,7 +1,5 @@
-geneSignatureInputModeUI <- function(id, geneSignatures){
+geneSignatureInputModeUI <- function(id){
   ns <- NS(id)
-  
-  choices <- geneSignatures$signature
   
   list(
     fluidRow(

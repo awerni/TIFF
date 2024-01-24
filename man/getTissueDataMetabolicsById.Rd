@@ -16,7 +16,7 @@ returns all tissues}
 as rownames to the output table.}
 }
 \value{
-
+data.frame
 }
 \description{
 Get Tissue Data Metabolics By Id

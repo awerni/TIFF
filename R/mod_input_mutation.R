@@ -1,4 +1,5 @@
 mutationInputModeUI <- function(id){
+  
   ns <- NS(id)
   
   list(
@@ -14,24 +15,47 @@ mutationInputModeUI <- function(id){
       column_5(
         br(),
         h3(textOutput(ns("genename")))
-      ),
-      column_4(
-        br(), br(),  
-        actionButton(
-          inputId = ns("select_all"), 
-          label = "select all"
-        ),
-        actionButton(
-          inputId = ns("unselect_all"), 
-          label = "un-select all"
-        )
       )
     ),
-    fluidRow_12(containerDT(ns("table")))
+    br(),
+    tabsetPanel(
+      id = ns("SelectType"),
+      tabPanel(
+        "Table",
+        column_4(),
+        column_8(
+          br(),
+          fluidRow(
+            style = "text-align: right;",
+            column_6(
+              actionButton(ns("select_all"), "select all"),
+              actionButton(ns("unselect_all"), "un-select all")
+            ),
+            column_6(
+              fluidRow(
+                additionalColumnsUI_sidebar(
+                  ns("mutationDT")
+                )
+              )
+            )
+          )
+        ),
+        additionalColumnsUI_main(
+          ns("mutationDT")
+        )
+      ),
+      tabPanel(
+        "Plot",
+        restoreSelectionInputModeUI(
+          id = ns("display")
+        )
+      )
+    )
   )
 }
 
 mutationInputMode <- function(input, output, session, species, TissuePrefilter){
+  
   GeneMutation <- reactive({
     symbol <- input$symbol
     if (is.null(symbol)) return()
@@ -39,54 +63,44 @@ mutationInputMode <- function(input, output, session, species, TissuePrefilter){
     getGeneFromSymbol(symbol, species)
   })
   
-  TableData <- reactive({
-    if (is.null(GeneMutation())) return()
+
+  TissueMutation <- reactive({
+    gene <- GeneMutation()$ensg
+    prefilter <- TissuePrefilter()
+    req(gene, prefilter)
     
     withProgress(
-      expr = getInfoMutation(GeneMutation()$ensg, TissuePrefilter()),
-      message = 'Retrieving DNA status data', 
+      expr = getInfoMutation(gene, prefilter),
+      message = "Retrieving DNA status data",
       value = 0.3
     )
   })
   
-  output$genename <- renderText(GeneMutation()$name)
-  
-  output$table <- DT::renderDataTable(
-    expr = {
-      df <- TableData()
-      validate(need(is.data.frame(df) && nrow(df) > 0, "no sequencing data available..."))
-      df <- df %>% 
-        mutate(
-          dnamutation = gsub(";", "; ", dnamutation), 
-          aamutation = gsub(";", "; ", aamutation),
-          aamutated = as.factor(aamutated)
-        )
-      
-      if ("tumortype" %in% names(df)){
-        df <- df %>% mutate(tumortype = as.factor(tumortype))
-      }
-      
-      df
-    },
-    rownames = FALSE, 
+  tableInfo <- additionalColumns(
+    id = "mutationDT",
+    Table = TissueMutation,
+    defaultCols = c("tissuename", "tumortype", "aamutated"),
+    rownames = FALSE,
     escape = FALSE,
     selection = list(
-      mode = "multiple", 
+      mode = "multiple",
       target = "row"
     ),
-    filter = "top", 
+    filter = "top",
     options = list(
-      pageLength = 20, 
+      pageLength = 20,
       lengthMenu = c(10, 15, 20, 100)
     )
   )
   
-  proxy <- DT::dataTableProxy("table")
+  output$genename <- renderText(GeneMutation()$name)
+  
+  proxy <- tableInfo$proxy
   
   observeEvent(
     eventExpr = input$select_all, 
     handlerExpr = {
-      proxy %>% DT::selectRows(input$table_rows_all)
+      proxy %>% DT::selectRows(tableInfo$AllRows())
     }
   )
   
@@ -94,22 +108,51 @@ mutationInputMode <- function(input, output, session, species, TissuePrefilter){
     eventExpr = input$unselect_all, 
     handlerExpr = {
       proxy %>% DT::selectRows(list())
-    })
+    }
+  )
+  
+  
+  Items <- callModule(
+    module = restoreSelectionInputMode,
+    id = "display",
+    classStack = StashedData
+  )
+  
+  StashedData <- reactive({
+    TissueMutation()[tableInfo$AllRows(),]
+  })
+  
+  observeEvent(
+    eventExpr = input[["display-column"]], 
+    handlerExpr = {
+      updateSelectInput(
+        session = session,
+        inputId = "display-column",
+        selected = "aamutated"
+      )
+    }, 
+    once = TRUE, 
+    ignoreInit = TRUE
+  )
   
   Mutation_ti <- reactive({
-    selRow <- input$table_rows_selected
-    validate(need(selRow, "no row selected"))
     
-    proxy %>% DT::selectRows(list())
-    
-    tissuenames <- TableData() %>% 
-      slice(selRow) %>% 
-      pull(tissuename)
-    
-    list(
-      tissuename = tissuenames, 
-      source = NA
-    )
+    if(input$SelectType == "Table") {
+      selRow <- tableInfo$SelectedRows()
+      validate(need(selRow, "no row selected"))
+      proxy %>% DT::selectRows(list())
+      
+      tissuenames <- TissueMutation() %>% 
+        slice(selRow) %>% 
+        pull(tissuename)
+      
+      list(
+        tissuename = tissuenames, 
+        source = NA
+      )
+    } else {
+      Items()
+    }
   })
   
   Mutation_ti

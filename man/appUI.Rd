@@ -4,16 +4,10 @@
 \alias{appUI}
 \title{TIFF App UI}
 \usage{
-appUI(settings, proliferationTests, hallmarkGeneSets)
+appUI(settings)
 }
 \arguments{
 \item{settings}{settings object}
-
-\item{proliferationTests}{proliferation tests config extracted from the settings
-object by \code{getAvailableProliferationTests(getDrugScoreConfig(settings))}}
-
-\item{hallmarkGeneSets}{list of available genesets.
-E.g. a result of \code{getAvailableHallmarkGeneSets()}}
 }
 \description{
 TIFF App UI

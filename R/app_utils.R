@@ -1,7 +1,7 @@
 #' Get TIFF settings
 #' 
 #' Retrieves settings from an yml file. By default, the file from the package 
-#' is used. If you want to use your custom file, please set R_CONFIG_FILE 
+#' is used. If you want to use your custom file, please set TIFF_CONFIG_FILE 
 #' environmental variable.
 #' 
 #' If the `obj` argument is not NULL, it will be returned from the function.
@@ -10,7 +10,7 @@
 #' @export
 getSettings <- function(obj = NULL){
   defaultPath <- system.file("shiny/config.yml", package = "TIFF")
-  path <- Sys.getenv("R_CONFIG_FILE", unset = defaultPath)
+  path <- Sys.getenv("TIFF_CONFIG_FILE", unset = defaultPath)
   
   if (is.null(obj)){
     config::get(file = path)
@@ -76,7 +76,7 @@ initialSettingsCheck <- function(settings){
 #' @param sigx indicating the number of decimal places for rx.
 #' @param sigy indicating the number of decimal places for ry.
 #'
-#' @return
+#' @return function
 #' @export
 #'
 #' @examples

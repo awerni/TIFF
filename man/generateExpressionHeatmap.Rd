@@ -29,7 +29,7 @@ it on your own.}
 \item{flipAxes}{logical. Should the axes be flipped.}
 }
 \value{
-
+pheatmap object
 }
 \description{
 Generate Expression Heatmap

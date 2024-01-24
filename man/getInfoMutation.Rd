@@ -4,12 +4,15 @@
 \alias{getInfoMutation}
 \title{Get mutation information}
 \usage{
-getInfoMutation(ensg, prefilter)
+getInfoMutation(ensg, prefilter, width = 50)
 }
 \arguments{
 \item{ensg}{character string, gene ID}
 
 \item{prefilter}{TiffPrefilter object (see \code{\link{makePrefilter}})}
+
+\item{width}{interger, number of characters to show in `dnamutation` and
+`aamutation` fields}
 }
 \value{
 data.frame with fields: tissuename, tumortype, dnamutation, aamutation,
