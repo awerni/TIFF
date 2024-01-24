@@ -1,0 +1,18 @@
+include:
+  - project: "devops/gitlab-ci"
+    file: "/gitlab-ci.yml"
+
+variables:
+  STACK_NAME: bumc-az-webapp-tiff
+  STACK_CLUSTER: K8S-AZ-DFS-PRD
+  STACK_WEBHOOK: ${STACK_WEBHOOK}
+
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  extends:
+    - .branchMasterOnly
+    - .deployAzWebAppNotifyWithLogs
+  when: manual
