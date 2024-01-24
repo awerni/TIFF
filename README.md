@@ -24,7 +24,7 @@ Start an R session in RStudio and run the following code:
 ```
 library(TIFF)
 library(XIFF)
-library(tidyverse)
+library(ggplot2)
 
 setDbOptions(getSettings())
 tissue_anno <- getTissueAnnotation()
