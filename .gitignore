@@ -3,5 +3,6 @@
 .RData
 .Ruserdata
 *.Rproj
+renv.lock
 inst/doc
 docs
