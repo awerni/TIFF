@@ -4,7 +4,7 @@ aboutTabUI_main <- function(id, docuLink){
   text <- div(
     h3("Tissue Differences (TIFF)"),
     p("For cancer tissue data sets"),
-    p("written by Andreas Wernitznig (2018-2022), Jesse Lipp (2019), Zygmunt Zawadzki (2021-2022) and Michał Jakubczak (2020-2022)"),
+    p("written by Andreas Wernitznig (2018-2024), Michał Jakubczak (2020-2024), Jesse Lipp (2019) and Zygmunt Zawadzki (2021-2022)"),
     p(
       "Gene Set Enrichment Analysis (GSEA) is based on the R-package", 
       a("gage", href = "https://bioconductor.org/packages/release/bioc/html/gage.html", target = "_blank"), 

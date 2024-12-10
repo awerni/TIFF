@@ -28,9 +28,13 @@ appUI <- function(settings) {
     )
   )
   
-  theme <- XIFF::appTheme()
+  theme <- XIFF::appTheme(
+    version = 5,
+    bootswatch = NULL
+  )
   
   div(
+    class = "xiff-app",
     headTag,
     bslib::page_navbar(
       id = "app-MainMenu",
