@@ -30,6 +30,7 @@ Imports:
       broom,
       survival,
       survminer,
+      systemfonts,
       grid,
       edgeR,
       limma,
